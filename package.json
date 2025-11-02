@@ -1,0 +1,32 @@
+{
+  "name": "aurelia-select-beautiful",
+  "version": "1.0.0",
+  "description": "Custom Select component for Aurelia 2",
+  "main": "dist/index.js",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "aurelia",
+    "select",
+    "component",
+    "ui",
+    "fractalcms",
+    "fractal-cms",
+    "fractalCms"
+  ],
+  "author": "David Ghyse",
+  "license": "MIT",
+  "scripts": {
+    "build:ts": "tsc",
+    "build:scss": "sass src/styles/select-beautiful.scss dist/styles.css --no-source-map --style=compressed",
+    "build": "npm run build:ts && npm run build:scss",
+    "prepare": "npm run build"
+  },
+  "devDependencies": {
+    "aurelia": "^2.0.0-beta.25",
+    "sass": "^1.93.3",
+    "typescript": "^5.9.3"
+  }
+}
