@@ -7,6 +7,14 @@
   "files": [
     "dist"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dghyse/aurelia-select-beautiful.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dghyse/aurelia-select-beautiful/issues"
+  },
+  "homepage": "https://github.com/dghyse/aurelia-select-beautiful#readme",
   "keywords": [
     "aurelia",
     "select",

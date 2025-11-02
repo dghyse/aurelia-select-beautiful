@@ -42,4 +42,4 @@ npm install @fractalcms/select-beautiful
 
 ## License
 
-MIT © David Ghyse
+[license](./LICENSE)
