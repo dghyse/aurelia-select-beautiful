@@ -1,11 +1,43 @@
 {
-  "name": "aurelia-select-beautiful",
+  "name": "@fractalcms/aurelia-select-beautiful",
   "version": "1.0.0",
   "description": "Custom Select component for Aurelia 2",
-  "main": "dist/index.js",
   "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./dist/styles/select-beautiful.css": "./dist/styles/select-beautiful.css",
+    "./styles.css": "./dist/styles/select-beautiful.css"
+  },
   "files": [
-    "dist"
+    "dist/**/*"
+  ],
+  "scripts": {
+    "build:ts": "tsc",
+    "build:scss": "sass src/styles/select-beautiful.scss dist/styles/select-beautiful.css --no-source-map --style=compressed",
+    "build": "npm run build:ts && npm run build:scss",
+    "watch:ts": "tsc --watch",
+    "watch:scss": "sass --watch src/styles/select-beautiful.scss:dist/styles/select-beautiful.css --no-source-map",
+    "watch": "npm run watch:ts && npm run watch:scss",
+    "prepare": "npm run build"
+  },
+  "sideEffects": [
+    "./dist/styles/select-beautiful.css"
+  ],
+  "keywords": [
+    "aurelia",
+    "select",
+    "component",
+    "accessible",
+    "multiselect",
+    "ui",
+    "fractalcms",
+    "fractal-cms",
+    "fractalCms"
   ],
   "repository": {
     "type": "git",
@@ -14,23 +46,11 @@
   "bugs": {
     "url": "https://github.com/dghyse/aurelia-select-beautiful/issues"
   },
-  "homepage": "https://github.com/dghyse/aurelia-select-beautiful#readme",
-  "keywords": [
-    "aurelia",
-    "select",
-    "component",
-    "ui",
-    "fractalcms",
-    "fractal-cms",
-    "fractalCms"
-  ],
   "author": "David Ghyse",
   "license": "MIT",
-  "scripts": {
-    "build:ts": "tsc",
-    "build:scss": "sass src/styles/select-beautiful.scss dist/styles.css --no-source-map --style=compressed",
-    "build": "npm run build:ts && npm run build:scss",
-    "prepare": "npm run build"
+  "homepage": "https://github.com/dghyse/aurelia-select-beautiful#readme",
+  "peerDependencies": {
+    "aurelia": "^2.0.0"
   },
   "devDependencies": {
     "aurelia": "^2.0.0-beta.25",

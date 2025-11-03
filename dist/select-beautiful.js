@@ -39,7 +39,6 @@ var __setFunctionName = (this && this.__setFunctionName) || function (f, name, p
 import { bindable, customAttribute, ILogger, INode, resolve, IPlatform } from "aurelia";
 export var ECssTheme;
 (function (ECssTheme) {
-    ECssTheme["DEFAULT"] = "default";
     ECssTheme["DARK"] = "dark";
     ECssTheme["RED"] = "red";
     ECssTheme["BLUE"] = "blue";
@@ -56,7 +55,7 @@ export class SelectBeautifulOptions {
         this.removeAllText = 'Toutes les sélections ont été supprimées';
         this.addText = 'ajouté';
         this.eventChangeItemName = 'fractalcms-select-change';
-        this.theme = ECssTheme.DEFAULT;
+        this.theme = ECssTheme.SOFT;
         Object.assign(this, options);
     }
 }
@@ -84,20 +83,10 @@ let SelectBeautiful = (() => {
                 'Enter',
                 'Escape',
             ];
-            /**
-             * Focus to input search
-             *
-             * @param event
-             */
             this.onFocusin = (event) => {
                 this.logger.trace('onFocusin');
                 this.openList();
             };
-            /**
-             * Focus out container
-             *
-             * @param event
-             */
             this.onFocusinDom = (event) => {
                 const target = event.target;
                 this.logger.trace('onFocusinDom', target);
@@ -112,11 +101,6 @@ let SelectBeautiful = (() => {
                     this.closeList();
                 }
             };
-            /**
-             * Search in option
-             *
-             * @param event
-             */
             this.onSearch = (event) => {
                 this.logger.trace('onSearch');
                 event.preventDefault();
@@ -126,16 +110,10 @@ let SelectBeautiful = (() => {
                 const target = event.currentTarget;
                 const value = target.value.trim().toLowerCase();
                 this.optionsFiltered = this.options.filter((option, key) => {
-                    var _a;
-                    return (_a = option.textContent) === null || _a === void 0 ? void 0 : _a.toLowerCase().includes(value);
+                    return option.textContent?.toLowerCase().includes(value);
                 });
                 this.buildList(this.optionsFiltered);
             };
-            /**
-             * Click on li from this list item
-             *
-             * @param event
-             */
             this.onListItemClick = (event) => {
                 this.logger.trace('onListItemClick');
                 event.preventDefault();
@@ -144,11 +122,6 @@ let SelectBeautiful = (() => {
                 this.manageItem(item);
                 this.closeList();
             };
-            /**
-             * Manage keypress
-             *
-             * @param event
-             */
             this.onKeydown = (event) => {
                 this.logger.trace('onKeydown', event);
                 const key = event.key;
@@ -192,20 +165,14 @@ let SelectBeautiful = (() => {
                     this.ariaActiveItem(this.activeItemPrevIndex, false);
                 }
             };
-            /**
-             * Remove item selected
-             *
-             * @param event
-             */
             this.onRemoveItem = (event) => {
-                var _a;
                 this.logger.trace('onRemoveItem');
                 event.preventDefault();
                 const current = event.currentTarget;
                 const target = current.closest('span');
                 if (target) {
                     const firstChild = target.querySelector(':not(button)');
-                    let textContent = (_a = target.firstChild) === null || _a === void 0 ? void 0 : _a.textContent;
+                    let textContent = target.firstChild?.textContent;
                     if (firstChild) {
                         textContent = firstChild.textContent;
                     }
@@ -227,12 +194,6 @@ let SelectBeautiful = (() => {
             this.closeList();
             this.restoreSelect();
         }
-        /**
-         * set default options
-         *
-         * @param options
-         * @private
-         */
         setOptions(options = this.bindableOptions) {
             const defaults = new SelectBeautifulOptions();
             const merged = Object.assign({}, defaults, options);
@@ -259,17 +220,11 @@ let SelectBeautiful = (() => {
                 this.platform.clearTimeout(this.timeoutId);
             }
         }
-        /**
-         * Init structure
-         *
-         * @private
-         */
         initStructure() {
             this.logger.trace('initStructure');
             this.element.setAttribute('multiple', 'true');
             const listLabel = this.element.getAttribute('prompt');
             this.element.style.display = 'none';
-            //Store select options
             this.element.querySelectorAll('option').forEach((option, key) => {
                 if (option.value) {
                     this.options.push(option);
@@ -282,16 +237,12 @@ let SelectBeautiful = (() => {
                     }
                 }
             });
-            //Create div container
             this.divContainer = this.platform.document.createElement('div');
             this.divContainer.classList.add('theme-' + this.bindableOptions.theme, 'select-beautiful');
-            //Create item container
             this.divItemContainer = this.platform.document.createElement('div');
             this.divItemContainer.classList.add('select-beautiful--item');
-            //Search container
             this.divSearchContainer = this.platform.document.createElement('div');
             this.divSearchContainer.classList.add('select-beautiful--search');
-            //Create ul list item
             this.listElement = this.platform.document.createElement('ul');
             this.listElement.setAttribute('role', 'listbox');
             if (listLabel) {
@@ -307,7 +258,6 @@ let SelectBeautiful = (() => {
                 this.listElement.setAttribute('id', this.divListItemId);
             }
             this.listElement.addEventListener('click', this.onListItemClick);
-            //Create input search
             this.inputSearch = this.platform.document.createElement('input');
             this.inputSearch.type = 'text';
             this.inputSearch.classList.add('select-beautiful--search---input');
@@ -325,17 +275,14 @@ let SelectBeautiful = (() => {
             this.inputSearch.addEventListener('keydown', this.onKeydown);
             this.divSearchContainer.append(this.inputSearch);
             this.divSearchContainer.append(this.listElement);
-            //Create div live message
             this.divLiveMsg = this.platform.document.createElement('div');
             this.divLiveMsg.setAttribute('aria-live', 'polite');
             this.divLiveMsg.classList.add('sr-only');
             this.divContainer.append(this.divItemContainer, this.divSearchContainer, this.divLiveMsg);
-            //Append element in Dom
             this.element.before(this.divContainer);
         }
         restoreSelect() {
             this.logger.trace('restoreSelect');
-            //Add selected item
             if (this.listElement) {
                 this.listElement.querySelectorAll('li').forEach((li, key) => {
                     const selected = li.getAttribute('aria-selected');
@@ -345,12 +292,6 @@ let SelectBeautiful = (() => {
                 });
             }
         }
-        /**
-         * build list displaying
-         *
-         * @param options
-         * @private
-         */
         buildList(options) {
             this.logger.trace('buildList');
             if (this.listElement) {
@@ -363,13 +304,6 @@ let SelectBeautiful = (() => {
                 this.addItemList(ele, key);
             });
         }
-        /**
-         * Add item in list
-         *
-         * @param option
-         * @param key
-         * @private
-         */
         addItemList(option, key) {
             this.logger.trace('addItemList', key);
             const li = this.platform.document.createElement('li');
@@ -390,11 +324,6 @@ let SelectBeautiful = (() => {
                 this.listElement.append(li);
             }
         }
-        /**
-         * Dispatch event change
-         *
-         * @private
-         */
         dispatchChangeEvent() {
             const event = new CustomEvent(this.bindableOptions.eventChangeItemName, {
                 detail: this.currentChoiced,
@@ -402,13 +331,6 @@ let SelectBeautiful = (() => {
             });
             this.element.dispatchEvent(event);
         }
-        /**
-         * manage aria active
-         *
-         * @param index
-         * @param active
-         * @private
-         */
         ariaActiveItem(index, active) {
             this.logger.trace('activeItem');
             const liId = 'option-' + index;
@@ -425,12 +347,6 @@ let SelectBeautiful = (() => {
                 }
             }
         }
-        /**
-         * Notify message for accessibility
-         *
-         * @param msg
-         * @private
-         */
         notification(msg) {
             this.timeoutId = this.platform.setTimeout(() => {
                 if (this.divLiveMsg) {
@@ -438,12 +354,6 @@ let SelectBeautiful = (() => {
                 }
             }, 50);
         }
-        /**
-         * Add choice item
-         *
-         * @param newItem
-         * @private
-         */
         pushChoiceItem(newItem) {
             this.logger.trace('pushChoiceItem');
             const find = this.findInChoiceItem(newItem.value);
@@ -451,12 +361,6 @@ let SelectBeautiful = (() => {
                 this.currentChoiced.push(newItem);
             }
         }
-        /**
-         * Remove item choice
-         *
-         * @param value
-         * @private
-         */
         removeChoiceItem(value) {
             this.logger.trace('removeChoiceItem');
             if (this.currentChoiced.length > 0) {
@@ -469,12 +373,6 @@ let SelectBeautiful = (() => {
                 this.currentChoiced = [...newItems];
             }
         }
-        /**
-         * Find  value in choice item list
-         *
-         * @param value
-         * @private
-         */
         findInChoiceItem(value) {
             this.logger.trace('findInChoiceItem');
             return this.currentChoiced.find((item, index) => {
@@ -489,12 +387,6 @@ let SelectBeautiful = (() => {
             }
             return item;
         }
-        /**
-         * Add new item choiced in div
-         *
-         * @param itemLi
-         * @private
-         */
         addItem(itemLi) {
             this.logger.trace('addItem');
             const span = this.platform.document.createElement('span');
@@ -521,30 +413,17 @@ let SelectBeautiful = (() => {
                 this.divItemContainer.append(span);
             }
         }
-        /**
-         * Remove and unselect item
-         *
-         * @param element
-         * @private
-         */
         removeAndUnSelected(element) {
-            var _a, _b;
             this.logger.trace('removeAndUnSelected');
             const itemId = element.getAttribute('data-id');
             if (this.listElement) {
-                (_a = this.listElement.querySelector(`[data-id="${itemId}"]`)) === null || _a === void 0 ? void 0 : _a.setAttribute('aria-selected', 'false');
+                this.listElement.querySelector(`[data-id="${itemId}"]`)?.setAttribute('aria-selected', 'false');
             }
             if (this.divItemContainer) {
-                (_b = this.divItemContainer.querySelector(`[data-id="${itemId}"]`)) === null || _b === void 0 ? void 0 : _b.remove();
+                this.divItemContainer.querySelector(`[data-id="${itemId}"]`)?.remove();
             }
             this.removeChoiceItem(itemId);
         }
-        /**
-         * Manage item
-         *
-         * @param item
-         * @private
-         */
         manageItem(item) {
             this.logger.trace('manageItem');
             if (item) {
@@ -562,11 +441,6 @@ let SelectBeautiful = (() => {
                 this.updateInputSelectElement();
             }
         }
-        /**
-         * Close list
-         *
-         * @private
-         */
         closeList() {
             if (this.listElement) {
                 this.listElement.style.display = 'none';
@@ -583,11 +457,6 @@ let SelectBeautiful = (() => {
                 this.listOpen = false;
             }
         }
-        /**
-         * Open list
-         *
-         * @private
-         */
         openList() {
             if (this.listElement) {
                 this.listElement.style.display = 'block';
@@ -604,11 +473,6 @@ let SelectBeautiful = (() => {
                 this.listOpen = true;
             }
         }
-        /**
-         * Update select value
-         *
-         * @private
-         */
         updateInputSelectElement() {
             this.logger.trace('updateInputSelectElement');
             const selectedValues = new Set(this.currentChoiced.map(i => i.value));
@@ -620,11 +484,6 @@ let SelectBeautiful = (() => {
             });
             this.dispatchChangeEvent();
         }
-        /**
-         * Clear all
-         *
-         * @private
-         */
         clearAll(verbose = false) {
             this.logger.trace('clearAll');
             this.currentChoiced = [];

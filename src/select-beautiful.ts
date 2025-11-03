@@ -5,7 +5,6 @@ export interface IItemChoice {
     content:string
 }
 export enum ECssTheme {
-    DEFAULT = 'default',
     DARK = 'dark',
     RED = 'red',
     BLUE = 'blue',
@@ -33,7 +32,7 @@ export class SelectBeautifulOptions implements ISelectBeautifulOptions {
     public removeAllText = 'Toutes les sélections ont été supprimées';
     public addText = 'ajouté';
     public eventChangeItemName = 'fractalcms-select-change';
-    public theme: ECssTheme = ECssTheme.DEFAULT;
+    public theme: ECssTheme = ECssTheme.SOFT;
 
     constructor(options?: Partial<ISelectBeautifulOptions>) {
         Object.assign(this, options);
