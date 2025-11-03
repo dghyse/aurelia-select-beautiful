@@ -50,7 +50,7 @@
   "license": "MIT",
   "homepage": "https://github.com/dghyse/aurelia-select-beautiful#readme",
   "peerDependencies": {
-    "aurelia": "^2.0.0"
+    "aurelia": "^2.0.0-beta.25"
   },
   "devDependencies": {
     "aurelia": "^2.0.0-beta.25",
