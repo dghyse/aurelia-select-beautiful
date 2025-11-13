@@ -1,6 +1,6 @@
 # @fractalcms/select-beautiful
 
-Un composant Select multi-thèmes et accessible pour [Aurelia 2](https://docs.aurelia.io/), conçu pour être simple, élégant et extensible.
+Un composant Select multi-sélection et accessible pour [Aurelia 2](https://docs.aurelia.io/), conçu pour être simple, élégant et extensible.
 Compatible multi-sélection, recherche intégrée, navigation clavier et ARIA live pour l’accessibilité.
 
 ## Installation
@@ -38,14 +38,14 @@ Elle garantit que vos styles de site ne sont jamais altérés.
 ## Exemple d'utilisation
 
 ```html
-<select multiple fractalcms-select-beautiful.bind="{ theme: 'green', multiple: true }">
+<select multiple fractalcms-select-beautiful.bind="{ theme: 'green'}">
   <option value="1">Option 1</option>
   <option value="2">Option 2</option>
 </select>
 ```
 
 ```html
-<select fractalcms-select-beautiful.bind="{ theme: 'default', multiple: false }">
+<select fractalcms-select-beautiful="">
   <option value="1">Option 1</option>
   <option value="2">Option 2</option>
 </select>
@@ -59,14 +59,14 @@ Elle garantit que vos styles de site ne sont jamais altérés.
 
 ## Thèmes CSS
 
-| Thème                 | Description                         | Exemple                |
-| --------------------- | ----------------------------------- | ---------------------- |
-| `soft` *(par défaut)* | Clair, doux et neutre               | `theme.bind: 'soft'`   |
-| `dark`                | Fond sombre, texte clair            | `theme.bind: 'dark'`   |
-| `blue`                | Accent bleu professionnel           | `theme.bind: 'blue'`   |
-| `red`                 | Accent rouge moderne                | `theme.bind: 'red'`    |
-| `green`               | Accent vert équilibré               | `theme.bind: 'green'`  |
-| `custom`              | Thème utilisateur (voir ci-dessous) | `theme.bind: 'custom'` |
+| Thème                 | Description                         | Exemple           |
+| --------------------- | ----------------------------------- |-------------------|
+| `soft` *(par défaut)* | Clair, doux et neutre               | `theme: 'soft'`   |
+| `dark`                | Fond sombre, texte clair            | `theme: 'dark'`   |
+| `blue`                | Accent bleu professionnel           | `theme: 'blue'`   |
+| `red`                 | Accent rouge moderne                | `theme: 'red'`    |
+| `green`               | Accent vert équilibré               | `theme: 'green'`  |
+| `custom`              | Thème utilisateur (voir ci-dessous) | `theme: 'custom'` |
 
 ### Exemple
 
@@ -119,7 +119,6 @@ Ce mode vous permet d’adapter le composant à la charte graphique de votre app
 
   | Option                | Type          | Default                                      | Description                            |
   |-----------------------|---------------|----------------------------------------------|----------------------------------------|
-  | `multiple`            | `boolean`     | `true`                                       | Enable multi-select                    |
   | `theme`               | `ECssTheme`   | `'soft'`                                     | Select theme                           |
   | `searchPlaceholder`   | `string`      | `'Rechercher'`                               | Search Input placeholder               |
   | `searchInputName`     | `string`      | `'model[search]'`                            | Search Input name                      |

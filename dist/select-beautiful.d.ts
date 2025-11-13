@@ -12,7 +12,6 @@ export declare enum ECssTheme {
     CUSTOM = "custom"
 }
 export interface ISelectBeautifulOptions {
-    multiple?: boolean;
     searchPlaceholder?: string;
     searchInputName?: string;
     removeText?: string;
@@ -22,12 +21,11 @@ export interface ISelectBeautifulOptions {
     theme?: ECssTheme;
 }
 export declare class SelectBeautifulOptions implements ISelectBeautifulOptions {
-    multiple: boolean;
     searchPlaceholder: string;
     searchInputName: string;
     removeText: string;
-    removeAllText: string;
     addText: string;
+    removeAllText: string;
     eventChangeItemName: string;
     theme: ECssTheme;
     constructor(options?: Partial<ISelectBeautifulOptions>);
@@ -39,6 +37,7 @@ export declare class SelectBeautiful {
     bindableOptions: SelectBeautifulOptions;
     private listElement?;
     private readonly options;
+    private multiple;
     private optionsFiltered?;
     private divContainer?;
     private divSearchContainer?;
