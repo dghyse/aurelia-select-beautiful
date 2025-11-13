@@ -14,7 +14,6 @@ export enum ECssTheme {
 }
 
 export interface ISelectBeautifulOptions {
-    multiple?: boolean;
     searchPlaceholder?: string;
     searchInputName?: string;
     removeText?: string;
@@ -25,12 +24,11 @@ export interface ISelectBeautifulOptions {
 }
 
 export class SelectBeautifulOptions implements ISelectBeautifulOptions {
-    public multiple = true;
     public searchPlaceholder = 'Rechercher';
     public searchInputName = 'model[search]';
     public removeText = 'retiré';
-    public removeAllText = 'Toutes les sélections ont été supprimées';
     public addText = 'ajouté';
+    public removeAllText = 'Toutes les sélections ont été supprimées';
     public eventChangeItemName = 'fractalcms-select-change';
     public theme: ECssTheme = ECssTheme.SOFT;
 
@@ -45,6 +43,7 @@ export class SelectBeautiful {
     @bindable({primary:true}) bindableOptions: SelectBeautifulOptions = new SelectBeautifulOptions();
     private listElement?:HTMLUListElement;
     private readonly options:HTMLOptionElement[];
+    private multiple:boolean = false;
     private optionsFiltered?:HTMLOptionElement[];
     private divContainer?:HTMLDivElement;
     private divSearchContainer?:HTMLDivElement;
@@ -132,7 +131,7 @@ export class SelectBeautiful {
     private initStructure()
     {
         this.logger.trace('initStructure');
-        this.element.setAttribute('multiple', 'true');
+        this.multiple = this.element.hasAttribute('multiple');
         const listLabel = this.element.getAttribute('prompt');
         this.element.style.display = 'none';
         //Store select options
@@ -482,8 +481,8 @@ export class SelectBeautiful {
                 }
             });
             this.currentChoiced = [...newItems];
-
         }
+        this.updateInputSelectElement();
     }
 
 
@@ -577,7 +576,7 @@ export class SelectBeautiful {
         if (item) {
             const ariaSelected = item.getAttribute('aria-selected');
             if (ariaSelected == 'false') {
-                if (!this.bindableOptions.multiple && this.currentChoiced.length > 0) {
+                if (!this.multiple && this.currentChoiced.length > 0) {
                     this.clearAll();
                 }
                 this.addItem(item);
